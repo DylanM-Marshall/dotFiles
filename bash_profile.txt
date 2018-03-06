@@ -1,0 +1,30 @@
+# .bash_profile
+. ~/.bashrc 
+# Get the aliases and functions
+if [ -f ~/.bashrc ]; then
+. ~/.bashrc
+fi
+
+alias chrome="open -a 'Google Chrome'"
+
+# User specific environment and startup programs
+
+PATH=$PATH:$HOME/bin
+
+export PATH
+export CLICOLOR=1
+export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
+export EDITOR=vim
+
+# MacPorts Installer addition on 2016-11-06_at_09:37:01: adding an appropriate PATH variable for use with MacPorts.
+export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
+# Finished adapting your PATH environment variable for use with MacPorts.
+
+#export PATH="$PATH:/Users/your_user/Library/Python/3.5/bin"
+export PYTHONPATH=$PYTHONPATH:/usr/local/bin/
+
+# for default jupyter notebook opening in chrome
+export BROWSER=/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome
+
+### NECESSARY FOR JUPYTER TO WORK IN Python 3.6 ###
+#export XDG_RUNTIME_DIR=""
