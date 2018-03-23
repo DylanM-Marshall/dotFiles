@@ -1,0 +1,8 @@
+h5py
+Keras
+matplotlib
+numpy
+pandas
+scikit-learn
+scipy
+tensorflow-gpu==1.4.0
