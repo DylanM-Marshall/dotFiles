@@ -29,6 +29,10 @@ function Y () {
   cd /n/groups/churchman/dmm57/YEAST/DATA/
   ll
 }
+function H () {
+  cd /n/groups/churchman/dmm57/HUMAN/
+  ll
+}
 function cl () {
   clear "$@" && ls
 }
@@ -57,20 +61,19 @@ function e () {
   exit
 }
 
+
 ######################################## JUPYTER LAB ########################################
-######################################## JUPYTER LAB ########################################
-######################################## JUPYTER LAB ########################################
-######################################## JUPYTER LAB ########################################
-alias jlil='srun -p interactive --pty -n 2 --mem 32G -t 0-11:59 /bin/bash'         # light
-alias jlim='srun -p interactive --pty -n 4 --mem 64G -t 0-11:59 /bin/bash'        # medium
+alias jlil='srun -p interactive --pty -n 2 --mem 32G -t 0-11:59 /bin/bash' # light
+alias jlim='srun -p interactive --pty -n 4 --mem 64G -t 0-11:59 /bin/bash' # medium
+alias jlih='srun -p interactive --pty -n 8 --mem 128G -t 0-11:59 /bin/bash' # heavy
 alias jlig1='srun -n 2 --pty --mem 32G -t 11:59:00 -p gpu --gres=gpu:1 /bin/bash'  # level 1
-alias jlig2='srun -n 8 --pty --mem 128G -t 11:59:00 -p gpu --gres=gpu:2 /bin/bash' # level 2
+alias jlig2='srun -n 4 --pty --mem 64G -t 11:59:00 -p gpu --gres=gpu:2 /bin/bash' # level 2
 function jlm () { # jupyterlab python 3 modules
   module load gcc/6.2.0
   module load python/3.6.0
   cd /n/groups/churchman/dmm57/notebook/
 }
-function jlmgpu () { # jupyterlab python 3 modules
+function jlmg () { # jupyterlab python 3 modules
   module load gcc/6.2.0
   module load cuda/9.0
   module load python/3.6.0
@@ -78,27 +81,33 @@ function jlmgpu () { # jupyterlab python 3 modules
   cd /n/groups/churchman/dmm57/notebook/
 }
 alias jlv='source ~/p36/bin/activate' # source jupyterlab python 3 venv
-alias jlgpu='source ~/p36_gpu/bin/activate' # source jupyterlab python 3 gpu venv
+alias jlvg='source ~/p36_gpu/bin/activate' # source jupyterlab python 3 gpu venv
 function jls () { # start jupyterlab python 3
-  #jupyterlab --port="$1" --browser='none' 
   python3.6 -m jupyter lab --port=51544 --browser='none' 
 }
 function jlr () { # run jupyterlab python 3 
-  #ssh -N -L "$1":127.0.0.1:"$1" "$2"
   ssh -N -L 51544:127.0.0.1:51544 compute-"$1"
 }
 ######################################## JUPYTER LAB ########################################
-######################################## JUPYTER LAB ########################################
-######################################## JUPYTER LAB ########################################
-######################################## JUPYTER LAB ########################################
 
 
-########################################### O2 ###########################################
+###################################### INTERACTIVE GPU ######################################
+alias ig1='srun -n 2 --pty --mem 32G -t 11:59:00 -p gpu --gres=gpu:1 /bin/bash'
 alias ig2='srun -n 4 --pty --mem 100G -t 11:59:00 -p gpu --gres=gpu:2 /bin/bash'
 alias ig3='srun -n 6 --pty --mem 120G -t 11:59:00 -p gpu --gres=gpu:3 /bin/bash'
 alias ig4='srun -n 8 --pty --mem 128G -t 11:59:00 -p gpu --gres=gpu:4 /bin/bash'
 alias ig5='srun -n 8 --pty --mem 128G -t 11:59:00 -p gpu --gres=gpu:5 /bin/bash'
 alias ig6='srun -n 8 --pty --mem 128G -t 11:59:00 -p gpu --gres=gpu:6 /bin/bash'
+function igm () {
+  module load gcc/4.8.5
+  module load cuda/8.0
+  module load python/2.7.12-ucs4
+}
+alias igv='source /home/dmm57/p27_gpu/bin/activate' 
+###################################### INTERACTIVE GPU ######################################
+
+
+########################################### O2 ###########################################
 alias ls='ls -p' # my default for examining directories
 alias ll='ls -lahp' # list lexicographically, full
 alias p='python'
@@ -108,13 +117,19 @@ alias im='srun -p interactive --pty -n 4 --mem 64G -t 0-11:59 /bin/bash'
 alias iH='srun -p interactive --pty -n 14 --mem 180G -t 0-11:59 /bin/bash'
 alias ij='srun -n 8 --mem 128G -t 0-11:59 --pty -p interactive --x11 /bin/bash'
 alias iJ='srun -n 12 --mem 180G -t 0-11:59 --pty -p interactive --x11 /bin/bash'
-alias sg='source /home/dmm57/p27_gpu/bin/activate' # source tf-gpu virtualenv
 alias s='source /n/groups/churchman/dmm57/FIDDLE/O2/bin/activate' # source tf virtualenv
 alias j4='source ~/p27_jN/bin/activate' # source jupyter venv
 alias q='squeue -u dmm57'
 alias share='sshare -u dmm57 -U'
 alias sp='sprio -u dmm57'
+alias splong='sprio -l | sort -k3n | less -S'
 ########################################### O2 ###########################################
+
+####################################### T. Filter ########################################
+####################################### T. Filter ########################################
+# must load ... >> module load gcc/4.7.4
+####################################### T. Filter ########################################
+####################################### T. Filter ########################################
 
 # to be able to display X11 when using screen
 if [ -f ${HOME}/.preexec.bash ] && [ "$TERM" == "screen" ] ; then
@@ -127,4 +142,5 @@ if [ -f ${HOME}/.preexec.bash ] && [ "$TERM" == "screen" ] ; then
 	}
 	preexec_install
 fi
+
 
