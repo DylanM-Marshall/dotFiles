@@ -32,6 +32,7 @@ function d () {
   echo $year${MYMAP[$month]}$day
 }
 
+################################## jupyter stuffs ##################################
 # jupyter nb orchestra step 1, 2
 function j1 () {
   #ssh -Y -L "$1":127.0.0.1:"$1" dmm57@o2.hms.harvard.edu
@@ -43,8 +44,20 @@ function j2 () {
 function jl () {
   source ~/Venvs/p36/bin/activate
   cs ~/Desktop/pythonPG/notebooks/
-  python3.6 -m jupyter lab
+  python -m jupyter lab
 }
+################################## jupyter stuffs ##################################
+
+################################# osx fuse stuffs #################################
+function mo2 () { # mount
+  sshfs dmm57@o2.hms.harvard.edu:/n/groups/churchman/dmm57/ /Users/dylanmarshall/Desktop/O2/
+}
+function umo2 () { # unmount
+  umount -f /Users/dylanmarshall/Desktop/O2/
+}
+################################# osx fuse stuffs #################################
+
+
 alias dl='cs ~/Desktop/deepLearning' # go to deep learning stuffs
 alias ls='ls -p' # my default for examining directories
 alias ll='ls -lahp' # list lexicographically, full
@@ -61,6 +74,12 @@ alias pg='cs ~/Desktop/pythonPG/' # go to python playground
 alias n='cs ~/Desktop/pythonPG/notebooks/' # go to notebooks/labs directory
 # o2 orchestra
 alias o2='ssh -lt dmm57@o2.hms.harvard.edu' # shortcut to o2 orchestra
+function mo2 () { # mount
+  sshfs dmm57@o2.hms.harvard.edu:/n/groups/churchman/dmm57/ /Users/dylanmarshall/Desktop/O2/
+}
+function umo2 () { # unmount
+  umount -f /Users/dylanmarshall/Desktop/O2/
+}
 
 #set -o vi
 
@@ -80,6 +99,3 @@ fi
 
 # for custom scripts to be used anywhere
 export PATH=$PATH:$HOME/Scripts/
-
-# for use of miniconda python virtual environment
-#export PATH=/Users/marshall/miniconda3/bin:$PATH
