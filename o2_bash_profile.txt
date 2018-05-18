@@ -8,11 +8,14 @@ fi
 # User specific environment and startup programs
 #module load dev/python/2.7.6
 
-PATH=$PATH:$HOME/bin
+#PATH=$PATH:$HOME/bin
 #PATH=$PATH:$HOME/hSCRIPTS/
 #PATH=$HOME/hSCRIPTS:$PATH
 
 export PATH
+export PATH=$PATH:/home/dmm57/PROGRAMS
+# Weiner, Friedman, 2010 Genome Res Nuc-positioning
+export PATH=$PATH:/home/dmm57/PROGRAMS/template_filtering/
 export CLICOLOR=1
 export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
 export EDITOR=vim
