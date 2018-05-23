@@ -21,6 +21,7 @@ O2 commands, etc
 
 1) instantiating an interactive session 
   - examples on O2 confluence and the o2 bashrc text file in this Github repository
+  - **IMPORTANT AS HECK -->** add the `export XDG_RUNTIME_DIR=""` to the end of your `.bash_profile` file on o2
 2) loading necessary modules 
   - examples found throughout the functions in the o2 bashrc text file
     - `module load gcc/6.2.0 python/3.6.0`
