@@ -139,6 +139,7 @@ function ig () { # interactive gpu
 function ms () { # module source
   module load gcc/6.2.0 python/3.6.0 cuda/9.0
   source ~/colab_venv/bin/activate
+  cd /n/groups/churchman/dmm57/COLAB/
 }
 
 # start jupyter lab
@@ -220,6 +221,4 @@ if [ -f ${HOME}/.preexec.bash ] && [ "$TERM" == "screen" ] ; then
 	}
 	preexec_install
 fi
-
-
 
