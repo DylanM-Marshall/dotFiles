@@ -106,19 +106,3 @@ function cl () {
 ############################### BASIC FUNCTIONS ################################
 ############################### BASIC FUNCTIONS ################################
 
-
-
-############################## HELPER FUNCTIONS ################################
-############################## HELPER FUNCTIONS ################################
-ranger-cd() {
-    tmp=$(mktemp)
-    ranger --choosedir="$tmp" "$@"
-    [ -f $tmp ] && cd "$(cat $tmp)"
-    rm -f $tmp
-}
-alias r='ranger-cd'
-
-# for custom scripts to be used anywhere
-export PATH=$PATH:$HOME/Scripts/
-############################## HELPER FUNCTIONS ################################
-############################## HELPER FUNCTIONS ################################
