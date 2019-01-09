@@ -1,6 +1,9 @@
-# .bashrc
 #. ~/.bash_prompt
+
+############################## HELPER FUNCTIONS ################################
+############################## HELPER FUNCTIONS ################################
 LS_COLORS=$LS_COLORS:'di=0;35:' ; export LS_COLORS
+export PAGER="most"
 
 TERM=xterm-256color
 
@@ -11,79 +14,6 @@ fi
 
 PS1='\w\$ '
 
-# User specific aliases and functions
-function cs () {
-  cd "$@" && ls -la # cs = cd + ls
-}
-
-function cl () {
-  clear "$@" && ls # shortcut to clear page and list screen
-}
-
-function d () {
-  year=$(echo -n $(date) | awk "{print \$6}")
-  year=${year:2}
-  month=$(echo -n $(date) | awk "{print \$2}")
-  day=$(echo -n $(date) | awk "{print \$3}")
-  declare -A MYMAP=(
-    [Jan]=01 [Feb]=02 [Mar]=03 [Apr]=04 [May]=05 [Jun]=06 
-    [Jul]=07 [Aug]=08 [Sep]=09 [Oct]=10 [Nov]=11 [Dec]=12
-  )
-  echo $year${MYMAP[$month]}$day
-}
-
-################################## jupyter stuffs ##################################
-# jupyter nb orchestra step 1, 2
-function j1 () {
-  #ssh -Y -L "$1":127.0.0.1:"$1" dmm57@o2.hms.harvard.edu
-  ssh -Y -L 51544:127.0.0.1:51544 dmm57@o2.hms.harvard.edu
-}
-function j2 () {
-  ssh dmm57@login0"$1".o2.rc.hms.harvard.edu
-}
-function jl () {
-  source ~/Venvs/p36/bin/activate
-  cs ~/Desktop/pythonPG/notebooks/
-  python -m jupyter lab
-}
-################################## jupyter stuffs ##################################
-
-################################# osx fuse stuffs #################################
-function mo2 () { # mount
-  sshfs dmm57@o2.hms.harvard.edu:/n/groups/churchman/dmm57/ /Users/dylanmarshall/Desktop/O2/
-}
-function umo2 () { # unmount
-  umount -f /Users/dylanmarshall/Desktop/O2/
-}
-################################# osx fuse stuffs #################################
-
-
-alias dl='cs ~/Desktop/deepLearning' # go to deep learning stuffs
-alias ls='ls -p' # my default for examining directories
-alias ll='ls -lahp' # list lexicographically, full
-alias lS='ls -lahrSp' # list by increasing size, full
-alias del='rm -i' # safe remove
-alias sho='ssh -Ylt dmm57@orchestra.med.harvard.edu' # shortcut to orchestra account
-alias t='tmux' # shortcut to terminal multiplexer
-alias p='python' # shortcut to python
-alias p3='python3' # shortcut to python3
-alias f='cs ~/Desktop/FIDDLE/' # go to FIDDLE directory
-alias s='source ~/Desktop/venv/bin/activate' # source FIDDLE virtual environment
-alias j='jupyter notebook' # activate jupyter notebook
-alias pg='cs ~/Desktop/pythonPG/' # go to python playground
-alias n='cs ~/Desktop/pythonPG/notebooks/' # go to notebooks/labs directory
-# o2 orchestra
-alias o2='ssh -lt dmm57@o2.hms.harvard.edu' # shortcut to o2 orchestra
-function mo2 () { # mount
-  sshfs dmm57@o2.hms.harvard.edu:/n/groups/churchman/dmm57/ /Users/dylanmarshall/Desktop/O2/
-}
-function umo2 () { # unmount
-  umount -f /Users/dylanmarshall/Desktop/O2/
-}
-
-#set -o vi
-
-# Helpers
 ranger-cd() {
     tmp=$(mktemp)
     ranger --choosedir="$tmp" "$@"
@@ -92,10 +22,103 @@ ranger-cd() {
 }
 alias r='ranger-cd'
 
-# exercism CLI config
-if [ -f ~/.config/exercism/exercism_completion.bash ]; then
-	. ~/.config/exercism/exercism_completion.bash
-fi
+# for custom scripts to be used anywhere
+export PATH=$PATH:$HOME/Scripts/
+############################## HELPER FUNCTIONS ################################
+############################## HELPER FUNCTIONS ################################
+
+
+
+################################ GOOGLE COLAB ##################################
+################################ GOOGLE COLAB ##################################
+function j1 () { # step 1, terminal A
+  ssh -XY -L 51543:127.0.0.1:51543 dmm57@login03.o2.rc.hms.harvard.edu
+}
+function j2 () { # step 2, terminal B
+  ssh dmm57@login03.o2.rc.hms.harvard.edu
+}
+################################ GOOGLE COLAB ##################################
+################################ GOOGLE COLAB ##################################
+
+
+
+################################## OSX FUSE ####################################
+################################## OSX FUSE ####################################
+# mount to base
+function mo2 () { # mount
+  sshfs dmm57@login03.o2.rc.hms.harvard.edu:/n/groups/churchman/dmm57/ /Users/dylanmarshall/Desktop/OSX_FUSE_PH/O2/
+  echo ' ... entering O2 code base ... '
+  cd /Users/dylanmarshall/Desktop/OSX_FUSE_PH/O2/
+  atom .
+}
+function umo2 () { # unmount
+  umount -f /Users/dylanmarshall/Desktop/OSX_FUSE_PH/O2/
+  echo ' ... leaving O2 code base ... '
+  cd ~
+}
+# mount to modules
+function mo2m () { # mount
+  sshfs dmm57@login03.o2.rc.hms.harvard.edu:/n/groups/churchman/dmm57/notebook/PYTHON36/p36_modules /Users/dylanmarshall/Desktop/OSX_FUSE_PH/MODULES/
+  echo ' ... entering O2 modules code base ... '
+  cd /Users/dylanmarshall/Desktop/OSX_FUSE_PH/MODULES/
+  atom .
+}
+function umo2m () { # unmount
+  umount -f /Users/dylanmarshall/Desktop/OSX_FUSE_PH/MODULES/
+  echo ' ... leaving O2 modules code base ... '
+  cd ~
+}
+################################## OSX FUSE ####################################
+################################## OSX FUSE ####################################
+
+
+
+################################## ALIASES #####################################
+################################## ALIASES #####################################
+alias dl='cs ~/Desktop/deepLearning' # go to deep learning stuffs
+alias ls='ls -p' # my default for examining directories
+alias ll='ls -lahp' # list lexicographically, full
+alias lS='ls -lahrSp' # list by increasing size, full
+alias del='rm -i' # safe remove
+alias t='tmux' # shortcut to terminal multiplexer
+alias p='python' # shortcut to python
+alias p3='python3' # shortcut to python3
+alias f='cs ~/Desktop/FIDDLE/' # go to FIDDLE directory
+alias j='jupyter notebook' # activate jupyter notebook
+alias pg='cs ~/Desktop/pythonPG/' # go to python playground
+alias n='cs ~/Desktop/pythonPG/notebooks/' # go to notebooks/labs directory
+alias st='speedtest-cli' # command line internet speedtest
+# o2 orchestra
+alias o2='ssh dmm57@o2.hms.harvard.edu' # shortcut to o2 orchestra
+################################## ALIASES #####################################
+################################## ALIASES #####################################
+
+
+
+############################### BASIC FUNCTIONS ################################
+############################### BASIC FUNCTIONS ################################
+function cs () {
+  cd "$@" && ls -la # cs = cd + ls
+}
+function cl () {
+  clear "$@" && ls # shortcut to clear page and list screen
+}
+############################### BASIC FUNCTIONS ################################
+############################### BASIC FUNCTIONS ################################
+
+
+
+############################## HELPER FUNCTIONS ################################
+############################## HELPER FUNCTIONS ################################
+ranger-cd() {
+    tmp=$(mktemp)
+    ranger --choosedir="$tmp" "$@"
+    [ -f $tmp ] && cd "$(cat $tmp)"
+    rm -f $tmp
+}
+alias r='ranger-cd'
 
 # for custom scripts to be used anywhere
 export PATH=$PATH:$HOME/Scripts/
+############################## HELPER FUNCTIONS ################################
+############################## HELPER FUNCTIONS ################################
