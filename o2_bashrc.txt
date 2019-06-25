@@ -11,10 +11,7 @@ fi
 
 ################################## FUNCTIONS ###################################
 ################################## FUNCTIONS ###################################
-function C () {
-  cd /n/groups/churchman/dmm57/COLLATION/DM_ALIGNMENT
-  ll
-}
+
 function cs () {
   cd "$@" && ls -la # cs = cd + ls
 }
@@ -25,43 +22,12 @@ function e () {
   pwd
   exit
 }
-function f () {
-  cd /n/groups/churchman/dmm57/FIDDLE/
-  ls -a
-}
 function g () {
   cd /n/groups/churchman/dmm57/
   ls -a
 }
 function ga () {
-  # sinfo --Format=nodehost,cpusstate,memory,gres|grep 'HOSTNAMES\|gpu'
   sinfo --Format=nodehost,cpusstate,memory,gres,freemem | grep gpu
-}
-function h5 () {
-  module load gcc/6.2.0
-  module load hdf5/1.10.1
-}
-function H () {
-  cd /n/groups/churchman/dmm57/HUMAN/
-  ll
-}
-function iV () {
-  srun -p interactive --pty -n "$1" --mem "$2"G -t 0-0"$3":00 /bin/bash 
-}
-function j3 () {
-  module load gcc/6.2.0
-  module load python/2.7.12
-  cd /n/groups/churchman/dmm57/notebook/
-}
-function j5 () {
-  jupyter notebook --port="$1" --browser='none' 
-}
-function j6 () {
-  ssh -N -L "$1":127.0.0.1:"$1" "$2"
-}
-function n () {
-  cd /n/groups/churchman/dmm57/notebook/
-  ls
 }
 function p36 () {
   module load gcc/6.2.0 python/3.6.0
@@ -71,67 +37,33 @@ function w () {
   cd /n/groups/winston/
   ls -a
 }
-function Y () {
-  cd /n/groups/churchman/dmm57/YEAST/DATA/
-  ll
-}
+
 ################################## FUNCTIONS ###################################
 ################################## FUNCTIONS ###################################
 
 
+############################# COLAB INTERACTIVE  ###############################
+############################# COLAB INTERACTIVE  ###############################
 
-################################# JUPYTER LAB ##################################
-################################# JUPYTER LAB ##################################
-function jliv () {
-  # cores, memory, hours
-  srun -p interactive --pty -n "$1" --mem "$2"G -t 0-0"$3":00 /bin/bash
-}
-function jlivg () {
-  # cores, memory, hours, gpus
-  srun -p gpu --pty -n "$1" --mem "$2"G -t 0-0"$3":00 --gres=gpu:"$4" /bin/bash
-}
-# jupyterlab python 3 modules
-function jlm () {
-  module load gcc/6.2.0
-  module load python/3.6.0
-  cd /n/groups/churchman/dmm57/notebook/
-}
-# jupyterlab python 3 modules
-function jlmg () {
-  module load gcc/6.2.0
-  module load cuda/9.0
-  module load python/3.6.0
-  module load hdf5/1.10.1
-  cd /n/groups/churchman/dmm57/notebook/
-}
-# source jupyterlab python 3 venv
-alias jlv='source ~/p36/bin/activate'
-# source jupyterlab python 3 gpu venv
-alias jlvg='source ~/p36_gpu/bin/activate'
-# start jupyterlab python 3
-function jls () {
-  python3.6 -m jupyter lab --port=51543 --browser='none' 
-}
-# run jupyterlab python 3 
-function jlr () {
-  ssh -N -L 51543:127.0.0.1:51543 compute-"$1"
-}
-################################# JUPYTER LAB ##################################
-################################# JUPYTER LAB ##################################
-
-
-
-################################ GOOGLE COLAB  #################################
-################################ GOOGLE COLAB  #################################
-
+## terminal A
 # instantiate interactive / gpu session
 function ig () { # interactive gpu
   # cores, memory, hours, gpus
   srun -p interactive -p gpu --pty\
     -n "$1"\
     --mem "$2"G\
-    -t 0-0"$3":00\
+    -t 0-"$3":00\
     --gres=gpu:"$4"\
+    /bin/bash
+}
+
+# instantiate interactive / short session
+function is () { # interactive short
+  # cores, memory, hours
+  srun -p interactive -p short --pty\
+    -n "$1"\
+    --mem "$2"G\
+    -t 0-0"$3":00\
     /bin/bash
 }
 
@@ -145,59 +77,30 @@ function ms () { # module source
 # start jupyter lab
 function sjl () {
   python3.6 -m jupyter lab \
-  --port=51543\
+  --port=51542\
   --no-browser\
   --NotebookApp.token=''\
-  --NotebookApp.password=''\
   --NotebookApp.allow_origin="*"\
   --NotebookApp.allow_remote_access=True\
   --NotebookApp.disable_check_xsrf=True
 }
 
+## terminal B
 # connect jupyter lab
 function cjl () { # compute node name - e.g: g-16-194
-  ssh -N -L 51543:127.0.0.1:51543 compute-"$1"
+  ssh -N -L 51542:127.0.0.1:51542 compute-"$1"
 }
 
-################################ GOOGLE COLAB  #################################
-################################ GOOGLE COLAB  #################################
-
-
-
-############################### INTERACTIVE GPU ################################
-############################### INTERACTIVE GPU ################################
-# alias ig1='srun -n 2 --pty --mem 32G -t 04:00:00 -p gpu --gres=gpu:1 /bin/bash'
-# alias ig2='srun -n 4 --pty --mem 100G -t 04:00:00 -p gpu --gres=gpu:2 /bin/bash'
-# function igV () {
-#   # cores, memory, hours, gpus
-#   srun -p interactive -p gpu --pty\
-#     -n "$1"\
-#     --mem "$2"G\
-#     -t 0-0"$3":00\
-#     --gres=gpu:"$4"\
-#     /bin/bash
-# }
-# function igm () {
-#   module load gcc/4.8.5
-#   module load cuda/8.0
-#   module load python/2.7.12-ucs4
-# }
-# alias igv='source /home/dmm57/p27_gpu/bin/activate' 
-############################### INTERACTIVE GPU ################################
-############################### INTERACTIVE GPU ################################
+############################# COLAB INTERACTIVE  ###############################
+############################# COLAB INTERACTIVE  ###############################
 
 
 
 ###################################### O2 ######################################
 ###################################### O2 ######################################
-alias j4='source ~/p27_jN/bin/activate'
+
 alias ls='ls -p'
 alias ll='ls -lahp'
-alias il='srun -p interactive --pty -n 1 --mem 4G -t 0-01:00 /bin/bash'
-alias im='srun -p interactive --pty -n 4 --mem 64G -t 0-11:59 /bin/bash'
-alias ih='srun -p interactive --pty -n 14 --mem 180G -t 0-11:59 /bin/bash'
-alias ij='srun -n 8 --mem 128G -t 0-11:59 --pty -p interactive --x11 /bin/bash'
-alias iJ='srun -n 12 --mem 180G -t 0-11:59 --pty -p interactive --x11 /bin/bash'
 alias p='python'
 alias q='squeue -l -u dmm57'
 alias s='source ~/p36/bin/activate'
@@ -205,6 +108,7 @@ alias share='sshare -u dmm57 -U'
 alias sp='sprio -u dmm57'
 alias splong='sprio -l | sort -k3n | less -S'
 alias tmux='$HOME/local/bin/tmux'
+
 ###################################### O2 ######################################
 ###################################### O2 ######################################
 
@@ -221,4 +125,6 @@ if [ -f ${HOME}/.preexec.bash ] && [ "$TERM" == "screen" ] ; then
 	}
 	preexec_install
 fi
+
+
 

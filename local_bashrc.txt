@@ -32,7 +32,7 @@ export PATH=$PATH:$HOME/Scripts/
 ################################ GOOGLE COLAB ##################################
 ################################ GOOGLE COLAB ##################################
 function j1 () { # step 1, terminal A
-  ssh -XY -L 51543:127.0.0.1:51543 dmm57@login03.o2.rc.hms.harvard.edu
+  ssh -vXY -L 51542:127.0.0.1:51542 dmm57@login03.o2.rc.hms.harvard.edu
 }
 function j2 () { # step 2, terminal B
   ssh dmm57@login03.o2.rc.hms.harvard.edu
@@ -46,26 +46,17 @@ function j2 () { # step 2, terminal B
 ################################## OSX FUSE ####################################
 # mount to base
 function mo2 () { # mount
-  sshfs dmm57@login03.o2.rc.hms.harvard.edu:/n/groups/churchman/dmm57/ /Users/dylanmarshall/Desktop/OSX_FUSE_PH/O2/
-  echo ' ... entering O2 code base ... '
-  cd /Users/dylanmarshall/Desktop/OSX_FUSE_PH/O2/
+  sshfs\
+    dmm57@login03.o2.rc.hms.harvard.edu:/n/groups/churchman/dmm57/COLAB/\
+    /Users/dylanmarshall/Desktop/OSX_FUSE_PH/COLAB/
+  echo ' ... entering O2 CoLab code base ... '
+  cd /Users/dylanmarshall/Desktop/OSX_FUSE_PH/COLAB/
   atom .
 }
+# unmount from base
 function umo2 () { # unmount
-  umount -f /Users/dylanmarshall/Desktop/OSX_FUSE_PH/O2/
-  echo ' ... leaving O2 code base ... '
-  cd ~
-}
-# mount to modules
-function mo2m () { # mount
-  sshfs dmm57@login03.o2.rc.hms.harvard.edu:/n/groups/churchman/dmm57/notebook/PYTHON36/p36_modules /Users/dylanmarshall/Desktop/OSX_FUSE_PH/MODULES/
-  echo ' ... entering O2 modules code base ... '
-  cd /Users/dylanmarshall/Desktop/OSX_FUSE_PH/MODULES/
-  atom .
-}
-function umo2m () { # unmount
-  umount -f /Users/dylanmarshall/Desktop/OSX_FUSE_PH/MODULES/
-  echo ' ... leaving O2 modules code base ... '
+  umount -f /Users/dylanmarshall/Desktop/OSX_FUSE_PH/COLAB/
+  echo ' ... leaving O2 CoLab code base ... '
   cd ~
 }
 ################################## OSX FUSE ####################################
@@ -105,4 +96,3 @@ function cl () {
 }
 ############################### BASIC FUNCTIONS ################################
 ############################### BASIC FUNCTIONS ################################
-
